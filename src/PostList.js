@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class PostList extends Component {
   render() {
     return (
-      <div>
+      <div className="post-list">
         <h2>Welcome to Just Grown Up</h2>
       </div>
     )

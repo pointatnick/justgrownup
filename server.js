@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var Post = require('./model/posts');
 
 // instances
 var app = express();
@@ -9,9 +10,12 @@ var router = express.Router();
 
 // set port
 var port = process.env.API_PORT || 3001;
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config/config')[env];
 
 // db config
-mongoose.connect('mongodb://pointatnick:elephant1@ds145312.mlab.com:45312/justgrownup');
+mongoose.Promise = require('bluebird');
+mongoose.connect('mongodb://'+config.database.username+':'+config.database.password+'@'+config.database.db, { useMongoClient: true });
 
 // configure API to use bodyParser and look for JSON in request bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +35,37 @@ app.use((req, res, next) => {
 
 // set route path and initialize API
 app.use('/api', router);
+
+// router setup
+router.get('/', (req, res) => {
+  res.json({ message: 'API initialized' });
+});
+
+// add the /posts route
+router.route('/posts')
+  .get((req, res) => {
+    // look at Post Schema
+    Post.find((err, posts) => {
+      if (err) {
+        res.send(err);
+      }
+      // respond with JSON object of posts
+      res.json(posts);
+    });
+  })
+  .post((req, res) => {
+    var post = new Post();
+    post.author = req.body.author;
+    post.title = req.body.title;
+    post.body = req.body.body;
+
+    post.save((err) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json({ message: 'Post successfully added!' });
+    });
+  });
 
 // start server and listen for requests
 app.listen(port, () => {

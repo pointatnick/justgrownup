@@ -14,7 +14,7 @@ class Navbar extends Component {
           <li><input type="text" placeholder="Search" /></li>
         </ul>
       </div>
-    )
+    );
   }
 }
 

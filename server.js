@@ -9,7 +9,7 @@ var app = express();
 var router = express.Router();
 
 // set port
-var port = process.env.API_PORT || 3001;
+var port = process.env.PORT || 3000;
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 

@@ -20,7 +20,7 @@ class PostList extends Component {
   }
 
   loadData() {
-    fetch('http://localhost:3001/api/posts').then(res => res.json())
+    fetch('/api/posts').then(res => res.json())
     .then(posts => {
       this.setState({ data: posts });
     }).catch(err => {

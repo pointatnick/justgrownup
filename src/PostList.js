@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import Post from './Post';
+import PostAdd from './PostAdd';
 
 class PostList extends Component {
   constructor() {
     super();
     this.state = { data: [] }
+    this.createPost = this.createPost.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
+  }
+
+  createPost(newPost) {
+    const posts = this.state.data.slice();
+    posts.push(newPost);
+    this.setState({ data: posts });
   }
 
   loadData() {
@@ -27,6 +35,7 @@ class PostList extends Component {
     return (
       <div>
         <h1>Posts</h1>
+        <PostAdd createPost={this.createPost} />
         <div className="postlist-container">
           {postNodes}
         </div>

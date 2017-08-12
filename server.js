@@ -8,8 +8,6 @@ var Post = require('./model/posts');
 var app = express();
 var router = express.Router();
 
-// set port
-var port = process.env.PORT || 5000;
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 
@@ -38,6 +36,9 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache');
   next();
 });
+
+// static react files
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 // set route path and initialize API
 app.use('/api', router);
@@ -73,7 +74,13 @@ router.route('/posts')
     });
   });
 
+// catchall
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
 // start server and listen for requests
+var port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`API running on port ${port}`);
+  console.log(`App on port ${port}`);
 });

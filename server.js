@@ -15,7 +15,7 @@ var config = require('./config/config')[env];
 
 // db config
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://'+process.env.MONGO_USERNAME+':'+process.env.MONGO_PASSWORD+'@'+config.database.db, { useMongoClient: true });
+mongoose.connect('mongodb://'+process.env.MONGO_USERNAME+':'+process.env.MONGO_PASSWORD+'@'+process.env.MONGO_DB, { useMongoClient: true });
 
 // configure API to use bodyParser and look for JSON in request bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -10,13 +10,12 @@ const app = express();
 const router = express.Router();
 
 const env = process.env.NODE_ENV || 'development';
-const config = require('./config/config')[env];
 
 // db config
 mongoose.Promise = require('bluebird');
-const mongoUser = process.env.MONGO_USERNAME || config.database.username;
-const mongoPw = process.env.MONGO_PASSWORD || config.database.password;
-const mongoDb = process.env.MONGO_DB || config.database.db;
+const mongoUser = process.env.MONGO_USERNAME;
+const mongoPw = process.env.MONGO_PASSWORD;
+const mongoDb = process.env.MONGO_DB;
 mongoose.connect(
   'mongodb://' + mongoUser + ':' + mongoPw + '@' + mongoDb,
   {useMongoClient: true}

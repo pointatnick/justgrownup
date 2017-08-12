@@ -9,13 +9,19 @@ var app = express();
 var router = express.Router();
 
 // set port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 
 // db config
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://'+process.env.MONGO_USERNAME+':'+process.env.MONGO_PASSWORD+'@'+process.env.MONGO_DB, { useMongoClient: true });
+var mongoUser = process.env.MONGO_USERNAME || config.database.username;
+var mongoPw = process.env.MONGO_PASSWORD || config.database.password;
+var mongoDb = process.env.MONGO_DB || config.database.db;
+mongoose.connect(
+  'mongodb://' + mongoUser + ':' + mongoPw + '@' + mongoDb,
+  {useMongoClient: true}
+);
 
 // configure API to use bodyParser and look for JSON in request bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));

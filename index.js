@@ -72,6 +72,17 @@ router.route('/posts')
     });
   });
 
+router.route('/posts/:id')
+  .get((req, res) => {
+    Post.findOne({ '_id': req.params.id }, (err, post) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(post);
+    })
+  });
+
 // catchall
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));

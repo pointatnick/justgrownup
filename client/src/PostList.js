@@ -19,12 +19,13 @@ export default class PostList extends Component {
   }
 
   loadData() {
-    fetch('/api/posts').then(res => res.json())
-    .then(posts => {
-      this.setState({ data: posts });
-    }).catch(err => {
-      console.log(err);
-    });
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(posts => {
+        this.setState({ data: posts });
+      }).catch(err => {
+        console.log(err);
+      });
   }
 
   render() {

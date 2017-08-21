@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import Navbar from './Navbar.js';
-import PostList from './PostList.js';
-import './css/App.css';
+import Header from './Header.js';
+import Main from './Main.js';
 
 class App extends Component {
   render() {
     return (
-      <div className="app">
-        <Navbar />
-        <div className="main">
-          <PostList />
-        </div>
+      <div>
+        <Header />
+        <Main />
       </div>
     );
   }

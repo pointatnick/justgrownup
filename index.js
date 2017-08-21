@@ -9,13 +9,11 @@ const Post = require('./model/posts');
 const app = express();
 const router = express.Router();
 
-const env = process.env.NODE_ENV || 'development';
-
 // db config
 mongoose.Promise = require('bluebird');
-const mongoUser = process.env.MONGO_USERNAME;
-const mongoPw = process.env.MONGO_PASSWORD;
-const mongoDb = process.env.MONGO_DB;
+const mongoUser = process.env.MONGO_USERNAME || 'pointatnick';
+const mongoPw = process.env.MONGO_PASSWORD || '3374797JGN';
+const mongoDb = process.env.MONGO_DB || 'ds145312.mlab.com:45312/justgrownup';
 mongoose.connect(
   'mongodb://' + mongoUser + ':' + mongoPw + '@' + mongoDb,
   {useMongoClient: true}

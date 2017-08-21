@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Post from './Post';
-import PostAdd from './PostAdd';
+import { Link } from 'react-router-dom';
 
-class PostList extends Component {
+export default class PostList extends Component {
   constructor() {
     super();
     this.state = { data: [] }
@@ -29,19 +28,17 @@ class PostList extends Component {
   }
 
   render() {
-    const postNodes = this.state.data.map(post =>
-      <Post author={post.author} title={post.title} body={post.body} />
+    const postPreviews = this.state.data.map(p =>
+      <li key={p._id}>
+        <Link to={`/posts/${p._id}`}>{p.title}</Link>
+      </li>
     );
     return (
       <div>
-        <h1>Posts</h1>
-        <PostAdd createPost={this.createPost} />
-        <div className="postlist-container">
-          {postNodes}
-        </div>
+        <ul>
+          {postPreviews}
+        </ul>
       </div>
-    )
+    );
   }
 }
-
-export default PostList;

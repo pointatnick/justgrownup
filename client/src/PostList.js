@@ -31,11 +31,12 @@ export default class PostList extends Component {
   render() {
     const postPreviews = this.state.data.map(p =>
       <li key={p._id}>
-        <Link to={`/posts/${p._id}`}>{p.title}</Link>
+        <Link to={`/articles/${p._id}`}>{p.title}</Link>
       </li>
     );
     return (
       <div>
+        <h2>Posts</h2>
         <ul>
           {postPreviews}
         </ul>

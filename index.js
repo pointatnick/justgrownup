@@ -85,23 +85,16 @@ router.route('/posts/:id')
   })
   .put((req, res) => {
     Post.findOneAndUpdate({ '_id': req.params.id }, {
-      post.title: req.body.title || post.title,
-      post.body: req.body.body || post.body,
+      $set: {
+        title: req.body.title,
+        body: req.body.body,
+      }
     }, (err, post) => {
       if (err) {
         res.send(err);
       }
 
-      post.title = req.body.title || post.title;
-      post.body = req.body.body || post.body;
-
-      post.save((err, post) => {
-        if (err) {
-          res.send(err);
-        }
-
-        res.json(post);
-      })
+      res.json(post);
       console.log("update post", req.params.id);
     })
   })

@@ -72,14 +72,6 @@ router.route('/posts')
     });
   });
 
-
-const callback = (err, post) => {
-  if (err) {
-    res.send(err);
-  }
-
-  res.json(post);
-}
 router.route('/posts/:id')
   .get((req, res) => {
     Post.findOne({ '_id': req.params.id }, (err, post) => {
@@ -88,6 +80,7 @@ router.route('/posts/:id')
       }
 
       res.json(post);
+      console.log("read post", req.params.id);
     })
   })
   .put((req, res) => {
@@ -97,6 +90,7 @@ router.route('/posts/:id')
       }
 
       res.json(post);
+      console.log("update post", req.params.id);
     })
   })
   .delete((req, res) => {
@@ -105,7 +99,8 @@ router.route('/posts/:id')
         res.send(err);
       }
 
-      res.json({ message: 'Post deleted' });
+      res.json(post);
+      console.log("delete post", req.params.id);
     })
   });
 

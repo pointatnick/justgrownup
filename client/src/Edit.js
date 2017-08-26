@@ -35,8 +35,8 @@ export default class Edit extends Component {
     e.preventDefault();
     var form = document.forms.post;
     this.updatePost({
-      title: form.title.value,
-      body: form.body.value,
+      title: this.state.title,
+      body: this.state.body,
     });
     this.setState({ redirect: true });
   }
@@ -46,7 +46,10 @@ export default class Edit extends Component {
   }
 
   updatePost(post) {
-    fetch(`/api/posts/${this.state.id}`, { method: 'put' })
+    fetch(`/api/posts/${this.state.id}`, {
+      method: 'put',
+      body: this.state,
+    })
       .then(res => res.json());
   }
 

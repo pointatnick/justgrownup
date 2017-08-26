@@ -81,6 +81,15 @@ router.route('/posts/:id')
 
       res.json(post);
     })
+  })
+  .delete((req, res) => {
+    Post.findOneAndRemove({ '_id': req.params.id }, (err, post) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json({ message: 'Post deleted' });
+    })
   });
 
 // catchall

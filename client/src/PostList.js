@@ -5,17 +5,10 @@ export default class PostList extends Component {
   constructor() {
     super();
     this.state = { data: [] }
-    this.createPost = this.createPost.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
-  }
-
-  createPost(newPost) {
-    const posts = this.state.data.slice();
-    posts.push(newPost);
-    this.setState({ data: posts });
   }
 
   loadData() {

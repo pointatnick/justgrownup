@@ -72,9 +72,26 @@ router.route('/posts')
     });
   });
 
+
+const callback = (err, post) => {
+  if (err) {
+    res.send(err);
+  }
+
+  res.json(post);
+}
 router.route('/posts/:id')
   .get((req, res) => {
     Post.findOne({ '_id': req.params.id }, (err, post) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(post);
+    })
+  })
+  .put((req, res) => {
+    Post.findOneAndUpdate({ '_id': req.params.id }, (err, post) => {
       if (err) {
         res.send(err);
       }

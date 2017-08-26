@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 export default class Edit extends Component {
   constructor(props) {
@@ -8,8 +8,10 @@ export default class Edit extends Component {
       author: '',
       title: '',
       body: '',
+      redirect: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
@@ -31,26 +33,51 @@ export default class Edit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    var form = document.forms.postAdd;
-    this.props.createPost({
-      author: form.author.value,
+    var form = document.forms.post;
+    this.updatePost({
       title: form.title.value,
       body: form.body.value,
     });
+    this.setState({ redirect: true });
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  updatePost(post) {
+    fetch(`/api/posts/${this.state.id}`, { method: 'put' })
+      .then(res => res.json());
   }
 
   render() {
-    return (
-      <div>
-        <h2>Edit post</h2>
-        <form name="post" onSubmit={this.handleSubmit}>
-          <input type="text" name="title" value={this.state.title} />
-          <h3>Written by {this.state.author}</h3>
-          <input type="text" name="body" value={this.state.body} />
-          <button>Cancel</button>
-          <Link to={`/articles/${this.state.id}`}><button>Save</button></Link>
-        </form>
-      </div>
-    )
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={`/articles/${this.state.id}`} />
+    } else {
+      return (
+        <div>
+          <h2>Edit post</h2>
+          <form name="post" onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="title"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+            <h3>Written by {this.state.author}</h3>
+            <input
+              type="text"
+              name="body"
+              value={this.state.body}
+              onChange={this.handleChange}
+            />
+            <button>Cancel</button>
+            <button type="submit">Save</button>
+          </form>
+        </div>
+      );
+    }
   }
 }

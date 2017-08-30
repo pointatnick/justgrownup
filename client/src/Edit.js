@@ -33,11 +33,7 @@ export default class Edit extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    var form = document.forms.post;
-    this.updatePost({
-      title: this.state.title,
-      body: this.state.body,
-    });
+    this.updatePost();
     this.setState({ redirect: true });
   }
 
@@ -45,12 +41,11 @@ export default class Edit extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  updatePost(post) {
+  updatePost() {
     fetch(`/api/posts/${this.state.id}`, {
       method: 'put',
       body: this.state,
-    })
-      .then(res => res.json());
+    }).then(res => res.json());
   }
 
   render() {
@@ -67,15 +62,13 @@ export default class Edit extends Component {
               type="text"
               name="title"
               value={this.state.title}
-              onChange={this.handleChange}
-            />
+              onChange={this.handleChange} />
             <h3>Written by {this.state.author}</h3>
             <input
               type="text"
               name="body"
               value={this.state.body}
-              onChange={this.handleChange}
-            />
+              onChange={this.handleChange} />
             <button>Cancel</button>
             <button type="submit">Save</button>
           </form>

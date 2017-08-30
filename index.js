@@ -16,30 +16,21 @@ const mongoPw = process.env.MONGO_PASSWORD || '3374797JGN';
 const mongoDb = process.env.MONGO_DB || 'ds145312.mlab.com:45312/justgrownup';
 mongoose.connect(
   'mongodb://' + mongoUser + ':' + mongoPw + '@' + mongoDb,
-  {useMongoClient: true}
+  { useMongoClient: true }
 );
 
 // configure API to use bodyParser and look for JSON in request bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// set headers to allow CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-
-  // remove caching to get most recent Posts
-  res.setHeader('Cache-Control', 'no-cache');
-  next();
-});
-
 // static react files
 app.use(express.static(path.join(__dirname, 'client/build')))
 
 // set route path and initialize API
 app.use('/api', router);
+
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(bodyParser.json());
 
 // router setup
 router.get('/', (req, res) => {
@@ -59,16 +50,15 @@ router.route('/posts')
     });
   })
   .post((req, res) => {
-    var post = new Post();
-    post.author = req.body.author;
-    post.title = req.body.title;
-    post.body = req.body.body;
+    var post = new Post(req.body);
+    console.log(req.body);
 
     post.save((err) => {
       if (err) {
         res.send(err);
       }
       res.json({ message: 'Post successfully added!' });
+      console.log('post successful')
     });
   });
 
@@ -84,19 +74,19 @@ router.route('/posts/:id')
     })
   })
   .put((req, res) => {
-    Post.findOneAndUpdate({ '_id': req.params.id }, {
-      $set: {
-        title: req.body.title,
-        body: req.body.body,
-      }
-    }, (err, post) => {
-      if (err) {
-        res.send(err);
-      }
+    console.log(req.body);
+    Post.findOneAndUpdate(
+      { '_id': req.params.id },
+      req.body,
+      { upsert: true },
+      (err, post) => {
+        if (err) {
+          res.send(err);
+        }
 
-      res.json(post);
-      console.log("update post", req.params.id);
-    })
+        res.json(post);
+        console.log("update post", req.params.id);
+      })
   })
   .delete((req, res) => {
     Post.findOneAndRemove({ '_id': req.params.id }, (err, post) => {

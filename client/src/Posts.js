@@ -11,6 +11,7 @@ export default class Posts extends Component {
       <div>
         <Switch>
           <Route exact path='/articles' component={PostList} />
+          <Route path='/articles/new' component={PostAdd} />
           <Route path='/articles/edit/:id' component={Edit} />
           <Route path='/articles/:id' component={Post} />
         </Switch>

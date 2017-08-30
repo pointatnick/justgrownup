@@ -33,6 +33,7 @@ export default class PostList extends Component {
         <ul>
           {postPreviews}
         </ul>
+        <Link to='/articles/new'><button type="button">New Post</button></Link>
       </div>
     );
   }

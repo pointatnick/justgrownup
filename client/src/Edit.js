@@ -44,7 +44,8 @@ export default class Edit extends Component {
   updatePost() {
     fetch(`/api/posts/${this.state.id}`, {
       method: 'put',
-      body: this.state,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(this.state),
     }).then(res => res.json());
   }
 
@@ -52,7 +53,7 @@ export default class Edit extends Component {
     const { redirect } = this.state;
 
     if (redirect) {
-      return <Redirect to={`/articles/${this.state.id}`} />
+      return <Redirect to={`/articles/${this.state.id}`} />;
     } else {
       return (
         <div>

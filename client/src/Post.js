@@ -30,6 +30,7 @@ export default class Post extends Component {
     if (window.confirm("Are you sure you want to delete this post?")) {
       fetch(`/api/posts/${this.state.id}`, { method: 'delete' })
         .then(res => res.json());
+      // TODO: redirect?
       window.location.href='/articles';
     }
   }

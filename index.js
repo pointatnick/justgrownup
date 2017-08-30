@@ -51,13 +51,12 @@ router.route('/posts')
   })
   .post((req, res) => {
     var post = new Post(req.body);
-    console.log(req.body);
 
-    post.save((err) => {
+    post.save((err, post) => {
       if (err) {
         res.send(err);
       }
-      res.json({ message: 'Post successfully added!' });
+      res.json(post);
       console.log('post successful')
     });
   });

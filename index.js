@@ -57,7 +57,7 @@ router.route('/posts')
         res.send(err);
       }
       res.json(post);
-      console.log('post successful')
+      console.log('create post', post._id);
     });
   });
 
@@ -69,7 +69,7 @@ router.route('/posts/:id')
       }
 
       res.json(post);
-      console.log("read post", req.params.id);
+      console.log('read post', req.params.id);
     })
   })
   .put((req, res) => {
@@ -84,7 +84,7 @@ router.route('/posts/:id')
         }
 
         res.json(post);
-        console.log("update post", req.params.id);
+        console.log('update post', req.params.id);
       })
   })
   .delete((req, res) => {
@@ -94,7 +94,7 @@ router.route('/posts/:id')
       }
 
       res.json(post);
-      console.log("delete post", req.params.id);
+      console.log('delete post', req.params.id);
     })
   });
 

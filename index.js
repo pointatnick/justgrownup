@@ -58,6 +58,7 @@ router.route('/posts')
       }
       res.json(post);
       console.log('create post', post._id);
+      console.log('test');
     });
   });
 

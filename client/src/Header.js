@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './Header.css';
 
 export default class Header extends Component {
   render() {
     return (
       <header>
-        <img id="logo-header" src="/assets/logo.png" />
+        <img id="logo-header" src="/images/logo.png" alt=""/>
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>

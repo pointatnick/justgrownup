@@ -1,0 +1,42 @@
+header {
+  border-bottom: 3px solid #ccc;
+  overflow: auto;
+}
+
+header img {
+  padding: 12px;
+  width: auto;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding-right: 12px;
+  float: right;
+}
+
+header ul {
+  line-height: 62px;
+  list-style: none;
+  overflow: hidden;
+  background-color: white;
+  margin: 0 auto;
+  padding: 0;
+}
+
+header li {
+  display: inline-block;
+}
+
+header li a {
+  padding: 30px 16px;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  font-family: verdana;
+}
+
+header li a:hover {
+  background-color: #ccc;
+}

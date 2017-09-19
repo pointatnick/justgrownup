@@ -33,6 +33,7 @@ header li a {
   padding: 30px 16px;
   text-decoration: none;
   color: black;
+  font-size: small;
   text-align: center;
   font-family: verdana;
 }

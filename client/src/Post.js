@@ -38,7 +38,7 @@ export default class Post extends Component {
   render() {
     return (
       <div>
-        <h2>{this.state.title}</h2>
+        <h1>{this.state.title}</h1>
         <h3>Written by {this.state.author}</h3>
         <p>{this.state.body}</p>
         <Link to={`/articles/edit/${this.state.id}`}>

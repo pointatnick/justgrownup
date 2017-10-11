@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { Editor, EditorState } from 'draft-js';
+import 'draft-js/dist/Draft.css';
+import './Draft.css';
 
 class PostAdd extends Component {
   constructor(props) {
@@ -39,7 +41,15 @@ class PostAdd extends Component {
 
   render() {
     return (
-      <Editor editorState={this.state.editorState} onChange={this.onChange} />
+      <div id="content">
+        <h1>New Post</h1>
+        <div className="editor">
+          <Editor
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+          />
+        </div>
+      </div>
     );
   //   const { redirect } = this.state;
   //

@@ -57,7 +57,7 @@ export default class Edit extends Component {
     } else {
       return (
         <div>
-          <h2>Edit post</h2>
+          <h1>Edit post</h1>
           <form name="post" onSubmit={this.handleSubmit}>
             <input
               type="text"

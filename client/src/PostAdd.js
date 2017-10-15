@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 // import { Redirect } from 'react-router-dom';
-import { Editor, EditorState } from 'draft-js';
-import 'draft-js/dist/Draft.css';
-import './Draft.css';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './PostAdd.css';
 
 class PostAdd extends Component {
   constructor(props) {
@@ -11,13 +12,38 @@ class PostAdd extends Component {
       editorState: EditorState.createEmpty(),
       // redirect: false,
     }
-    this.onChange = (editorState) => {
-      this.setState({ editorState });
-    }
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.createPost = this.createPost.bind(this);
+
+    // this.onChange = (editorState) => {
+    //   this.setState({ editorState });
+    // }
+    //
+    // this.handleKeyCommand = (command) => {
+    //   const newState = RichUtils.handleKeyCommand(
+    //     this.state.editorState,
+    //     command
+    //   );
+    //
+    //   if (newState) {
+    //     this.onChange(newState);
+    //     return 'handled';
+    //   }
+    //
+    //   return 'not-handled';
+    // }
+    // // this.handleSubmit = this.handleSubmit.bind(this);
+    // // this.handleChange = this.handleChange.bind(this);
+    // // this.createPost = this.createPost.bind(this);
   }
+
+  onEditorStateChange = (editorState) => {
+    this.setState({ editorState })
+  }
+
+  // onUnderlineClick = () => {
+  //   this.onChange(
+  //     RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
+  //   );
+  // }
 
   // handleChange(e) {
   //   e.preventDefault();
@@ -46,7 +72,10 @@ class PostAdd extends Component {
         <div className="editor">
           <Editor
             editorState={this.state.editorState}
-            onChange={this.onChange}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={this.onEditorStateChange}
           />
         </div>
       </div>

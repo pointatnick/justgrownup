@@ -1,124 +1,76 @@
-import React, { Component } from "react";
+import React, {Component, PropTypes} from 'react';
 // import { Redirect } from 'react-router-dom';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import RichTextEditor from 'react-rte';
 import './PostAdd.css';
 
 class PostAdd extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-      // redirect: false,
+  static propTypes = {
+    onChange: PropTypes.func
+  };
+
+  state = {
+    // redirect: false,
+    value: RichTextEditor.createEmptyValue()
+  }
+
+  onChange = (value) => {
+    this.setState({value});
+    if (this.props.onChange) {
+      // Send the changes up to the parent component as an HTML string.
+      // This is here to demonstrate using `.toString()` but in a real app it
+      // would be better to avoid generating a string on each change.
+      this.props.onChange(
+        value.toString('html')
+      );
     }
+  };
 
-    // this.onChange = (editorState) => {
-    //   this.setState({ editorState });
-    // }
+  render () {
+    //   const { redirect } = this.state;
     //
-    // this.handleKeyCommand = (command) => {
-    //   const newState = RichUtils.handleKeyCommand(
-    //     this.state.editorState,
-    //     command
-    //   );
-    //
-    //   if (newState) {
-    //     this.onChange(newState);
-    //     return 'handled';
+    //   if (redirect) {
+    //     return <Redirect to='/articles' />;
+    //   } else {
+    //     return (
+    //       <div>
+    //         <form name="postAdd" onSubmit={this.handleSubmit}>
+    //           <label>
+    //             Author<br/>
+    //             <input
+    //               onChange={this.handleChange}
+    //               type="text"
+    //               name="author"
+    //               value={this.state.author} />
+    //           </label>
+    //           <br/>
+    //           <label>
+    //             Title<br/>
+    //             <input
+    //               onChange={this.handleChange}
+    //               type="text"
+    //               name="title"
+    //               value={this.state.title} />
+    //           </label>
+    //           <br/>
+    //           <label>
+    //             Content<br/>
+    //             <input
+    //               onChange={this.handleChange}
+    //               type="text"
+    //               name="body"
+    //               value={this.state.body} />
+    //           </label><br/>
+    //           <input type="submit" value="Create" />
+    //         </form>
+    //       </div>
+    //     );
     //   }
-    //
-    //   return 'not-handled';
-    // }
-    // // this.handleSubmit = this.handleSubmit.bind(this);
-    // // this.handleChange = this.handleChange.bind(this);
-    // // this.createPost = this.createPost.bind(this);
-  }
-
-  onEditorStateChange = (editorState) => {
-    this.setState({ editorState })
-  }
-
-  // onUnderlineClick = () => {
-  //   this.onChange(
-  //     RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
-  //   );
-  // }
-
-  // handleChange(e) {
-  //   e.preventDefault();
-  //   this.setState({ [e.target.name]: e.target.value })
-  // }
-  //
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   this.createPost();
-  //   this.setState({ redirect: true });
-  // }
-  //
-  // createPost() {
-  //   fetch('/api/posts/', {
-  //     method: 'post',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(this.state),
-  //   })
-  //   .then(res => res.json())
-  // }
-
-  render() {
     return (
-      <div id="content">
-        <h1>New Post</h1>
-        <div className="editor">
-          <Editor
-            editorState={this.state.editorState}
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
-            onEditorStateChange={this.onEditorStateChange}
-          />
-        </div>
-      </div>
+      <RichTextEditor className="editor"
+        value={this.state.value}
+        onChange={this.onChange}
+      />
     );
-  //   const { redirect } = this.state;
-  //
-  //   if (redirect) {
-  //     return <Redirect to='/articles' />;
-  //   } else {
-  //     return (
-  //       <div>
-  //         <form name="postAdd" onSubmit={this.handleSubmit}>
-  //           <label>
-  //             Author<br/>
-  //             <input
-  //               onChange={this.handleChange}
-  //               type="text"
-  //               name="author"
-  //               value={this.state.author} />
-  //           </label>
-  //           <br/>
-  //           <label>
-  //             Title<br/>
-  //             <input
-  //               onChange={this.handleChange}
-  //               type="text"
-  //               name="title"
-  //               value={this.state.title} />
-  //           </label>
-  //           <br/>
-  //           <label>
-  //             Content<br/>
-  //             <input
-  //               onChange={this.handleChange}
-  //               type="text"
-  //               name="body"
-  //               value={this.state.body} />
-  //           </label><br/>
-  //           <input type="submit" value="Create" />
-  //         </form>
-  //       </div>
-  //     );
-  //   }
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Preview from './Preview';
 
 export default class PostList extends Component {
   constructor() {
@@ -34,6 +35,7 @@ export default class PostList extends Component {
           {postPreviews}
         </ul>
         <Link to='/articles/new'><button type="button">New Post</button></Link>
+        <Preview/>
       </div>
     );
   }

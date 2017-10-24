@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
+import 'bulma/css/bulma.css';
 
 class App extends Component {
   render() {

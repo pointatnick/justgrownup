@@ -6,7 +6,7 @@
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
-    "bulma": "^0.6.0",
+    "bulma": "^0.6.1",
     "draft-js": "^0.10.3",
     "express": "^4.15.3",
     "foreman": "^2.0.0",
